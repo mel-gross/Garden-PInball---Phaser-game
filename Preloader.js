@@ -58,6 +58,9 @@ gameObj.Preloader.prototype = {
         this.load.spritesheet('winButton', 'assets/btn_win.png', 90, 90);
         this.load.spritesheet('loseButton', 'assets/btn_lose.png', 90, 90);
         this.load.spritesheet('pointsButton', 'assets/btn_points.png', 90, 90);
+		
+		//load plygons physics data 
+		this.load.physics('physicsData', 'assets/sprites.json');
     },
     
     create: function () {

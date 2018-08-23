@@ -9,6 +9,8 @@ gameObj.Play = function (game) {
     var leftFlipper;
     var rightFlipper;
     var spBall;
+	var ballCollisionGroup;
+	var flippersCollisionGroup;
 };
 
 gameObj.Play.prototype = {
@@ -33,7 +35,7 @@ gameObj.Play.prototype = {
         var icStopWatch = this.add.sprite(500, 30, 'stopWatch');
         icStopWatch.scale.setTo(.4, .4);
         
-        spBall = this.add.sprite(250, 100, 'ball');
+        spBall = this.add.sprite(220, 100, 'ball');
         spBall.scale.setTo(.45, .45);
         
         var spTube = this.add.sprite(630, 250, 'tube');
@@ -127,29 +129,61 @@ gameObj.Play.prototype = {
         
 
         //GAME PHYSICS
-        this.physics.startSystem(Phaser.Physics.ARCADE); //arcade physics
-        this.physics.arcade.gravity.y = 0; //adds gravity to the game
-        this.physics.arcade.checkCollision.down = false; //makes the top, left and right walls bounce, but the bottom not
-        this.physics.enable([spBall, leftFlipper, rightFlipper], Phaser.Physics.ARCADE); //which sprites will be affected by the arcade physics
+		this.physics.startSystem(Phaser.Physics.P2JS);//p2 physics
+        this.physics.p2.gravity.y = 100; //adds gravity to the game
+		//this.physics.p2.setImpactEvents(true);
+		this.physics.p2.restitution = 1.0;
+		
+		var spriteMaterial = this.physics.p2.createMaterial('spriteMaterial');
+   		var worldMaterial = this.physics.p2.createMaterial('worldMaterial');
+    	var contactMaterial = this.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 1.0 });
+		this.physics.p2.setWorldMaterial(worldMaterial);
+		
+		var flippers = this.add.group();
+		flippers.enableBody = true;
+		flippers.physicsBodyType = Phaser.Physics.P2JS;
+		
+		this.physics.p2.enable([spBall, leftFlipper, rightFlipper]);
+		
+    	spBall.body.setCircle(10);
+		spBall.body.data.gravityScale = 1;
+		spBall.body.setMaterial(spriteMaterial);
+		spBall.body.data.gravityScale = 1;
+		
+		leftFlipper.body.clearShapes();
+		leftFlipper.body.loadPolygon('physicsData', 'leftFlipper');
+		leftFlipper.body.data.gravityScale = 0;
+		leftFlipper.body.setMaterial(spriteMaterial);
+		
+		rightFlipper.body.clearShapes();
+		rightFlipper.body.loadPolygon('physicsData', 'rightFlipper');
+		rightFlipper.body.setMaterial(spriteMaterial);
+		rightFlipper.body.data.gravityScale = 0;
+		
+		
+		spBall.body.onBeginContact.add(this.blockHit, this);
+		
+		
+        //this.physics.p2.checkCollision.down = false; //makes the top, left and right walls bounce, but the bottom not
+        //this.physics.p2.enable([spBall, leftFlipper, rightFlipper], Phaser.Physics.p2); //which sprites will be affected by the p2 physics
         
         
         //BALL PHYSICS
-        spBall.body.gravity.y = 100;
-        spBall.checkWorldBounds = true;
-        spBall.events.onOutOfBounds.add(this.loserFun, this); //ends game when ball falls past the bottom of the screen
-        spBall.body.bounce.setTo(.9,.9);
-        spBall.body.checkCollision = true;
+        //spBall.body.gravity.y = 100;
+        //spBall.checkWorldBounds = true;
+        //spBall.events.onOutOfBounds.add(this.loserFun, this); //ends game when ball falls past the bottom of the screen
+        //spBall.body.bounce.setTo(.9,.9);
+        //spBall.body.checkCollision = true;
         
         //FLIPPERS PHYSICS
-        leftFlipper.body.checkCollision = true;
-        leftFlipper.body.immovable = true;
-        rightFlipper.body.checkCollision = true;
-        rightFlipper.body.immovable = true;
+        //leftFlipper.body.checkCollision = true;
+        //leftFlipper.body.immovable = true;
+        //rightFlipper.body.checkCollision = true;
+        //rightFlipper.body.immovable = true;
 
     }, // end create 
-    update: function (){
-        this.game.physics.arcade.collide(spBall, leftFlipper);
-        this.game.physics.arcade.collide(spBall, rightFlipper);
+    blockHit: function (body, bodyB, shapeA, shapeB, equation){
+        console.log('ball hit flipper');
     },
     winnerFun: function () {
         //console.log('Win button clicked');

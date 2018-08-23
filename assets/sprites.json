@@ -1,0 +1,17 @@
+{
+	"leftFlipper": [
+		{
+			"dencity": 2, "friction": 0, "bounce": 0,
+			"filters": {"categoryBits": 1, "maskBits": 655535},
+			"shape": [ 34,2 , 58,24 , 48,152 , 36,165 , 11,124 , 4,52 , 9,10 ]
+		}
+	],
+
+	"rightFlipper": [
+		{
+			"dencity": 2, "friction": 0, "bounce": 0,
+			"filters": {"categoryBits": 1, "maskBits": 655535},
+			"shape": [ 21,0 , 52,18 , 57,140 , 42,172 , 26,163 , 6,68 , 0,19 ]
+		}
+	]
+}
