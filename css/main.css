@@ -1,0 +1,14 @@
+body{
+    background-color: #374a38;
+    padding:0;
+/*    padding-top:15px;*/
+    margin:0;
+/*    overflow:hidden;*/
+}
+
+#phaser-canvas{
+    margin:auto;
+    max-width:820px;
+    left: 0;
+    right: 0;
+}

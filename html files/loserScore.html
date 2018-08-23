@@ -1,0 +1,107 @@
+
+<!--TRY MAKING THE BUTTONS FUNCTIONAL FOR EXTRA CREDIT IF NOT CREATE A LANDING PAGE WITH 4 LINKING BUTTONS FOR ALL 4 GAME PAGES-->
+<!--STATUS: OK-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <!--hey look at me im changing!-->
+  <title>Garden Pinball | Loser Score </title>
+  <!--Add Phaser Framework library-->
+  <script src="phaser.min.js"></script>
+  <!--Add custom stylesheet-->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <div id="phaser-canvas"></div>
+  <!--Custom Javascript-->
+  <script type="text/javascript">
+    window.onload = function() {
+      var game = new Phaser.Game(720 , 960, Phaser.AUTO, 'phaser-canvas', {
+        preload: preload,
+        create: create
+      });
+        //PARAMETERS: width, height, type of game (usually Phaser.AUTO), linking the game to the html div, array (inside {}) of functions by naming them (prelaod assets and create).
+      
+    
+      function preload () { 
+        //image preload syntax=  load.image('name','path')
+        
+        game.load.image('loserBackground','assets/loserBackground.png');
+        game.load.image('loserFrame', 'assets/loserFrame.png');
+          
+        game.load.spritesheet('replayButton', 'assets/loserPlayAgainButton.png', 399, 155);  
+          
+        //button preload syntax = name, source, width and heigh (only showing up part of it)
+          // game.load.spritesheet('playButton', 'img/play_button.png', 180, 90);
+          
+        
+      } // end preload 
+      
+      function create () {
+        //---BACKGROUND:---
+        game.stage.backgroundColor = "#f8f8f8";
+          
+        //---GRAPHICS:---
+        var rectangleGrp = game.add.graphics(0,0);
+        rectangleGrp.beginFill(0x28446C);
+        rectangleGrp.lineTo(720,0);
+        rectangleGrp.lineTo(720,150);
+        rectangleGrp.lineTo(0,150);
+        rectangleGrp.endFill();
+          
+        
+        //---IMAGES:---
+        var background = game.add.image(game.world.centerX, game.world.centerY, 'loserBackground');
+            background.anchor.set(0.5);
+          
+        var frame = game.add.image(347, 545, 'loserFrame');
+            frame.anchor.set(0.5);
+            frame.scale.setTo(.45,.42);
+          
+          
+        //---SCORE AND TEXT:---
+        var generalStyle = { width: '150px',font: '30px Trebuchet MS', fill: 'balck', align: 'left'};
+        var numberStyle = { width: '150px', font: '65px Trebuchet MS', fill: 'balck', align: 'left', strokeThickness: '2.5'};
+        var titleStyle = {width: '150px', font: '100px Trebuchet MS', fill: "#F97A13", align: 'left', strokeThickness: '4', stroke:'#F97A13'};
+          
+        var titleStr = "YOU LOST!";
+          
+        var scoreTitleStr = "FINAL SCORE:";
+        var  scoreNum = 800;
+        var pointsStr = "points";
+          
+        var timeTitleStr = "FINAL TIME:";
+        var timeStr = "2:00";
+        var minutesStr = "minutes";
+        
+        var txTitle = game.add.text(game.world.centerX, 80, titleStr, titleStyle);
+            txTitle.anchor.set(0.5,0.5);
+        
+        var txScoreTitle = game.add.text(155,400, scoreTitleStr, generalStyle);
+        var txScore = game.add.text(190,455, scoreNum, numberStyle);
+        var txPoints = game.add.text(200,550, pointsStr, generalStyle);
+          
+        var txTimeTitle = game.add.text(405,400, timeTitleStr, generalStyle);
+        var txTime = game.add.text(415, 450, timeStr, numberStyle);
+        var txMinutes = game.add.text(427,550, minutesStr, generalStyle);
+        
+        //---BUTTON:---
+          var btPlay = game.add.button(game.world.centerX, 620, 'replayButton', actionOnClick, this, 1, 0, 2 );
+          btPlay.anchor.setTo(0.5, 0);
+        // widht, height, key, function called, this, Over, out, down
+
+        
+        function actionOnClick (){                                 window.open("https://melgross.net/idm245/hwk03/winnerScore.html");};
+        }
+      // end create 
+
+        
+    }; // end window.onload
+
+
+  </script>
+</body>
+
+</html>

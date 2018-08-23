@@ -1,0 +1,155 @@
+
+<!--TRY MAKING THE BUTTONS FUNCTIONAL FOR EXTRA CREDIT IF NOT CREATE A LANDING PAGE WITH 4 LINKING BUTTONS FOR ALL 4 GAME PAGES-->
+<!--STATUS: OK-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <!--hey look at me im changing!-->
+  <title>Garden Pinball | Game </title>
+  <!--Add Phaser Framework library-->
+  <script src="phaser.min.js"></script>
+  <!--Add custom stylesheet-->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <div id="phaser-canvas"></div>
+  <!--Custom Javascript-->
+  <script type="text/javascript">
+    window.onload = function() {
+      var game = new Phaser.Game(720 , 960, Phaser.AUTO, 'phaser-canvas', {
+        preload: preload,
+        create: create
+      });
+        //PARAMETERS: width, height, type of game (usually Phaser.AUTO), linking the game to the html div, array (inside {}) of functions by naming them (prelaod assets and create).
+      
+    
+      function preload () { 
+        //image preload syntax=  load.image('name','path')
+        game.load.image('logo', 'assets/logo.jpg');
+        game.load.image('stopWatch','assets/stopWatchIcon.png');
+        game.load.image('ball', 'assets/ball.png');
+        game.load.image('bounceLeaf01','assets/bounceLeaf01.png');
+        game.load.image('bounceLeaf02','assets/bounceLeaf02.png');
+        game.load.image('bounceLeaf03','assets/bounceLeaf03.png');
+        game.load.image('bounceLeaf04','assets/bounceLeaf04.png');
+        game.load.image('bounceLeafCorner','assets/bounceLeafCorner.png');
+        game.load.image('bounceBushCorner','assets/cornerBush.png');
+        game.load.image('slideLeaf01','assets/slideLeaf01.png');
+        game.load.image('slideLeaf02','assets/slideLeaf02.png');
+        game.load.image('succ01','assets/succ01.png');
+        game.load.image('succ02','assets/succ02.png');
+        game.load.image('succ03','assets/succ03.png');
+        game.load.image('tube','assets/tube.png');
+        game.load.image('vine01','assets/vine01.png');
+        game.load.image('vine02','assets/vine02.png');
+        game.load.image('leftFlipper','assets/leftFlipper.png');
+        game.load.image('rightFlipper','assets/rightFlipper.png');
+        game.load.image('miniSuccLeft','assets/lefMiniSucc.png');
+        game.load.image('miniSuccRight','assets/rightMiniSucc.png');
+          
+ 
+        //button preload syntax = name, source, width and heigh (only showing up part of it)
+          // game.load.spritesheet('playButton', 'img/play_button.png', 180, 90);
+          
+        
+      } // end preload 
+      
+      function create () {
+        //---BACKGROUND:---
+         game.stage.backgroundColor = "#ACDEB8";
+        
+        //---GRAPHICS:---
+        var rectangleGrp = game.add.graphics(0,0);
+        rectangleGrp.beginFill(0xF8F8F8);
+        rectangleGrp.lineTo(720,0);
+        rectangleGrp.lineTo(720,100);
+        rectangleGrp.lineTo(0,100);
+        rectangleGrp.endFill();
+          
+        //---SPRITES:---
+        var spLogo = game.add.sprite(game.world.centerX, 5, 'logo');
+            spLogo.scale.setTo(.25,.25);
+            spLogo.anchor.setTo(0.5, 0);
+        
+        var icStopWatch = game.add.sprite(500,30,'stopWatch');
+          icStopWatch.scale.setTo(.4,.4);
+          
+          
+        var spBall = game.add.sprite(130,500, 'ball');
+          spBall.scale.setTo(.45,.45);
+        var spTube =game.add.sprite(630,250,'tube');   
+          spTube.scale.setTo(.35,.35);
+          
+        var spSucc1 = game.add.sprite(280,300,'succ01');
+          spSucc1.scale.setTo(.35,.35);
+        var spSucc2 = game.add.sprite(430,200,'succ02');
+          spSucc2.scale.setTo(.35,.35);
+        var spSucc3 = game.add.sprite(150,170,'succ03');
+          spSucc3.scale.setTo(.35,.35);
+          
+        var spVine01 = game.add.sprite (190, 460,'vine01');
+          spVine01.scale.setTo(.4,.4);
+        var spVine02 = game.add.sprite (70, 380,'vine02');
+          spVine02.scale.setTo(.4,.4);
+          
+        var spSlideLeaf01 = game.add.sprite (0, 660,'slideLeaf01');
+          spSlideLeaf01.scale.setTo(.45,.45);
+        var spSlideLeaf02 = game.add.sprite(290,370,'slideLeaf02');
+          spSlideLeaf02.scale.setTo(.35,.35);
+          spSlideLeaf02.angle += -8;
+          
+        var spBounceLeafCorner = game.add.sprite (0, 100,'bounceLeafCorner');
+          spBounceLeafCorner.scale.setTo(.35,.35);
+        var spBounceBushCorner = game.add.sprite (500, 100,'bounceBushCorner');
+          spBounceBushCorner.scale.setTo(.35,.35);
+        var spBounceLeaf01 = game.add.sprite (320, 660,'bounceLeaf01');
+          spBounceLeaf01.scale.setTo(.35,.35);
+        var spBounceLeaf02 = game.add.sprite (550, 660,'bounceLeaf02');
+          spBounceLeaf02.scale.setTo(.45,.45);
+        var spBounceLeaf03 = game.add.sprite (620, 470,'bounceLeaf03');
+          spBounceLeaf03.scale.setTo(.45,.45);
+        var spBounceLeaf04 = game.add.sprite (440, 560,'bounceLeaf04');
+          spBounceLeaf04.scale.setTo(.45,.45);
+        
+        var miniSuccRight  = game.add.sprite(520,840,'miniSuccRight');
+          miniSuccRight.scale.setTo(.45,.45);
+        var miniSuccLeft = game.add.sprite(150,840,'miniSuccLeft');
+          miniSuccLeft.scale.setTo(.45,.45);
+        var leftFlipper = game.add.sprite(220,800,'leftFlipper');
+          leftFlipper.scale.setTo(.45,.45);
+        var rightFlipper = game.add.sprite(370,820,'rightFlipper');
+          rightFlipper.scale.setTo(.45,.45);
+          
+          
+        //---SCORE AND TEXT:---
+        var  scoreNum = 600;
+        var timeStr = "1:23";
+        var leftFlipperStr = "Left Flipper";
+        var rightFlipperStr = "Right Flipper";
+
+        var leftAlignStyle = { width: '150px',font: '35px Trebuchet MS', fill: 'balck', align: 'left', wordWrap: true, wordWrapWidth: 150 };
+        var rightAlignStyle = { width: '150px',font: '35px Trebuchet MS', fill: 'balck', align: 'right', wordWrap: true, wordWrapWidth: 150 };
+        var numberStyle = {
+            width: '150px', font: '65px Trebuchet MS', fill: 'balck', align: 'left' 
+        }
+
+        var txScore = game.add.text(75, 15, scoreNum, numberStyle);
+        var txTime = game.add.text(550, 15, timeStr, numberStyle);
+        var txLFlipper = game.add.text(20, 860, leftFlipperStr, leftAlignStyle);
+        var txRFlipper = game.add.text(590, 860, rightFlipperStr, rightAlignStyle);
+
+        }
+        
+      // end create 
+
+        
+    }; // end window.onload
+
+  </script>
+<a href="https://melgross.net/idm245/hwk03/loserScore.html">Go to Loser Game Screen</a>
+   
+</body>
+
+</html>

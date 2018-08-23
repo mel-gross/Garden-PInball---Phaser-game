@@ -1,0 +1,134 @@
+
+<!--TRY MAKING THE BUTTONS FUNCTIONAL FOR EXTRA CREDIT IF NOT CREATE A LANDING PAGE WITH 4 LINKING BUTTONS FOR ALL 4 GAME PAGES-->
+<!--STATUS: 1.Add textured background. 2.Make the word "don't" bold.-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <!--hey look at me im changing!-->
+  <title>Garden Pinball | Intro </title>
+  <!--Add Phaser Framework library-->
+  <script src="phaser.min.js"></script>
+  <!--Add custom stylesheet-->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <div id="phaser-canvas" style="border-color:black;"></div>
+  <!--Custom Javascript-->
+  <script type="text/javascript">
+    window.onload = function() {
+      var game = new Phaser.Game(720 , 960, Phaser.AUTO, 'phaser-canvas', {
+        preload: preload,
+        create: create
+      });
+        //PARAMETERS: width, height, type of game (usually Phaser.AUTO), linking the game to the html div, array (inside {}) of functions by naming them (prelaod assets and create).
+      
+    
+      function preload () { 
+        //image preload syntax=  load.image('name','path')
+        game.load.image('logo', 'assets/logo.jpg');
+        game.load.image('ball', 'assets/ball.png');
+        game.load.image('flower', 'assets/flowerStart.png');
+        game.load.image('leaf', 'assets/bounceLeaf04.png');
+        game.load.image('succ', 'assets/succ02.png');
+        game.load.image('stopWatch','assets/stopWatchIcon.png');
+        game.load.spritesheet('playButton', 'assets/startGameButton.png', 399, 112);
+          
+          
+        //button preload syntax = name, source, width and heigh (only showing up part of it)
+          // game.load.spritesheet('playButton', 'img/play_button.png', 180, 90);
+          
+        
+      } // end preload 
+      
+      function create () {
+        //---BACKGROUND:---
+        game.stage.backgroundColor = "#ACDEB8";
+        //game.stage.borderColor ="#000000";
+        
+        //---GRAPHICS:---
+        var rectangleGrp = game.add.graphics(0,0);
+        rectangleGrp.beginFill(0xF8F8F8);
+        rectangleGrp.lineTo(720,0);
+        rectangleGrp.lineTo(720,195);
+        rectangleGrp.lineTo(0,195);
+        rectangleGrp.endFill();
+          
+        //---SPRITES:---
+        var spLogo = game.add.sprite(game.world.centerX, 2, 'logo');
+        spLogo.scale.setTo(.5,.5);
+        spLogo.anchor.setTo(0.5, 0);
+          
+        var spBall = game.add.sprite(235,230, 'ball');
+            spBall.scale.setTo(.6,.6);
+        var spFlower = game.add.sprite(595,185,'flower');
+            spFlower.scale.setTo(.35,.35);
+            //Rotate flower
+            spFlower.angle += 30;
+        var spLeaf = game.add.sprite(200,500,'leaf');
+            spLeaf.scale.setTo(.35,.35);
+        var spSucc = game.add.sprite(580,465,'succ');
+            spSucc.scale.setTo(.40,.35);
+            spSucc.angle += 40;
+        
+        var icStopWatch = game.add.sprite(100,675,'stopWatch');
+          icStopWatch.scale.setTo(.4,.4);
+        //---TEXT AND STYLE:---
+        //style parameters for the game, comma separating, no comma on last paramenter (IT IS AN ARRAY)
+        var generalStyle = { 
+            width: '150px', font: '35px Trebuchet MS', fill: 'balck', align: 'left' };
+    //fonts are too streatched, change character width
+        var numberStyle = {
+            width: '150px', font: '40px Trebuchet MS', fill: 'balck', align: 'left' 
+        }
+          
+        var  instructions1 = "Click and hold";
+        var  instructions2 = "to launch the ball";
+        var  instructions3 = "Move by clicking the flippers";
+        var  instructions4 = "or using the arrow keys";
+        var  instructions5 = "Get points when";
+        var  instructions6 = "you touch the plants";
+        var  instructions7 = "You have";
+        var  instructions8 = "2:00";
+        var  instructions9 = "minutes";
+        var  instructions10 = "to get 1000 points";
+        var  instructions11 = "Don't fall!";
+          
+          
+        //line height of 45 and text block gap is 95
+        var txInstructions1 = game.add.text(330, 215, instructions1, generalStyle);
+        var txInstructions2 = game.add.text(305, 260, instructions2, generalStyle);
+        var txInstructions3 = game.add.text(70, 355, instructions3, generalStyle);
+        var txInstructions4 = game.add.text(105, 400, instructions4, generalStyle);
+        var txInstructions5 = game.add.text(270, 495, instructions5, generalStyle);
+        var txInstructions6 = game.add.text(235, 540, instructions6, generalStyle);  
+        var txInstructions7 = game.add.text(125, 635, instructions7, generalStyle);
+        var txInstructions8 = game.add.text(150, 675, instructions8, numberStyle);
+        var txInstructions9 = game.add.text(240, 680, instructions9, generalStyle);
+        var txInstructions10 = game.add.text(90, 725, instructions10, generalStyle);
+          txInstructions10.addColor('#F05B1B', 7);
+          txInstructions10.addColor('#000000', 12);
+        var txInstructions11 = game.add.text(460, 685, instructions11, generalStyle);
+        //x and y posit., string/var you wanna display, style you wanna use
+
+        
+          
+        //---BUTTONS:---
+        //the numbers given are the indexes of the frames in this order: OVER, OUT, DOWN
+        var btPlay = game.add.button(game.world.centerX, 810, 'playButton', actionOnClick, this, 1, 0, 2 );
+          btPlay.anchor.setTo(0.5, 0);
+        // widht, height, key, function called, this, Over, out, down
+
+        function actionOnClick (){ alert('Play buttons clicked');
+                                 window.open("https://melgross.net/idm245/hwk03/game.html");};
+        }
+      // end create 
+
+        
+    }; // end window.onload
+
+  </script>
+</body>
+
+</html>
